@@ -33,7 +33,7 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 }
 
 // Encrypting the password
-userSchema.pre("save", async next => {
+userSchema.pre("save", async function (next) {
 	if (!this.isModified("password")) {
 		next()
 	}
@@ -42,4 +42,4 @@ userSchema.pre("save", async next => {
 	this.password = await bcrypt.hash(this.password, salt)
 })
 
-userSchema.module.exports = mongoose.model("User", userSchema)
+module.exports = mongoose.model("User", userSchema)
