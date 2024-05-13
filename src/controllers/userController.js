@@ -34,6 +34,9 @@ const authUser = asyncHandler(async (req, res) => {
 	}
 })
 
+// @desc Register user
+// @route POST /api/user/
+// @access Public
 const registerUser = asyncHandler(async (req, res) => {
 	const { name, email, password } = req.body
 
@@ -64,4 +67,21 @@ const registerUser = asyncHandler(async (req, res) => {
 	}
 })
 
-module.exports = { authUser, registerUser }
+// @desc Get user
+// @route GET /api/user?search=
+// @access Private
+const getUsers = asyncHandler(async (req, res) => {
+	const keyword = req.query.search
+		? {
+				$or: [
+					{ name: { $regex: req.query.search, $options: "i" } },
+					{ email: { $regex: req.query.search, $options: "i" } },
+				],
+		  }
+		: {}
+
+	const users = await User.find(keyword).find({ _id: { $ne: req.user._id } })
+	res.send(users)
+})
+
+module.exports = { authUser, registerUser, getUsers }

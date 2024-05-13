@@ -1,11 +1,14 @@
 require("dotenv").config()
 const express = require("express")
-const routerIndex = require("./routers/routerIndex")
+const cookieParser = require("cookie-parser")
+const routerIndex = require("./routes/routerIndex")
+
 require("./db/connection")
 
 const app = express()
 
 app.use(express.json())
+app.use(cookieParser())
 app.use(routerIndex)
 
 app.listen(process.env.PORT || 3000, () => {
