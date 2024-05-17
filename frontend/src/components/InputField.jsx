@@ -4,7 +4,7 @@ export default function InputField({ placeholder, setterFn, type }) {
 		<>
 			<input
 				placeholder={placeholder}
-				className="border-2 border-gray-300 hover:outline-blue-700 focus:outline-2 focus:outline-blue-700 rounded-md transition-all px-3 py-2 font-semibold "
+				className="border-2 border-gray-300 hover:outline-blue-700 focus:outline-2 focus:outline-blue-700 rounded-md transition-all px-3 py-2 font-normal "
 				onChange={e => setterFn(e.target.value)}
 				type={type}
 			/>

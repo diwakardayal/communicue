@@ -8,8 +8,8 @@ export default function HomePage() {
 	return (
 		<>
 			<div className="pt-10 px-2">
-				<div className="text-3xl bg-white py-3 rounded-md text-center w-96 m-auto flex justify-center items-center gap-2">
-					<h1>CommuniCue</h1>{" "}
+				<div className="text-4xl bg-white py-3 rounded-md text-center w-96 m-auto flex justify-center items-center gap-2">
+					<h1 className="font-semibold">CommuniCue</h1>{" "}
 					<span>
 						<img src="/svgs/bubble.svg" width={30} />
 					</span>
@@ -20,7 +20,7 @@ export default function HomePage() {
 							isLogInTabVisible
 								? "rounded-3xl bg-[#BEE3F8]"
 								: "hover:rounded-3xl hover:bg-[#BEE3F8]"
-						} text-center font-bold text-[#315283]`}
+						} text-center font-semibold text-[#315283] transition-all`}
 						onClick={() => setIsLogInTabVisible(true)}
 					>
 						Login
@@ -30,7 +30,7 @@ export default function HomePage() {
 							!isLogInTabVisible
 								? "rounded-3xl bg-[#BEE3F8]"
 								: "hover:rounded-3xl hover:bg-[#BEE3F8]"
-						} text-center font-bold text-[#315283]`}
+						} text-center font-semibold text-[#315283] transition-all`}
 						onClick={() => setIsLogInTabVisible(false)}
 					>
 						Sign Up

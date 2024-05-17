@@ -79,10 +79,10 @@ export default function SignUpForm() {
 					id="picture"
 					type="file"
 					name="picture"
-					className="border-2 border-gray-300 hover:outline-blue-700 focus:outline-2 focus:outline-blue-700 rounded-md transition-all px-3 py-2 font-semibold "
+					className="border-2 border-gray-300 hover:outline-blue-700 focus:outline-2 focus:outline-blue-700 rounded-md transition-all px-3 py-2 font-normal "
 				/>
 				<button
-					className="bg-[#3383CE] text-white py-1 rounded-md font-bold hover:bg-[#3383ceed]"
+					className="bg-[#3383CE] text-white py-1 rounded-md font-semibold hover:bg-[#3383ceed]"
 					type="submit"
 				>
 					Sign up

@@ -15,7 +15,7 @@ export default {
 	plugins: [],
 	variants: {
 		extend: {
-			outline: ["hover", "focus"], // Enable hover and focus states for outline
+			outline: ["hover", "focus"],
 		},
 	},
 }

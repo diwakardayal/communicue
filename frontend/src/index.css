@@ -1,7 +1,47 @@
 .input-highlight::selection {
-    background-color: #3b82f6;  
-    color: white;
-  }
+	background-color: #3b82f6;
+	color: white;
+}
+
+.interactive-onFocus {
+	background-color: rgb(249, 250, 251);
+	outline: none;
+	transition: background-color 0.2s ease-in-out 0.05s, box-shadow 0.2s ease-in-out 0.05s;
+}
+
+.interactive-onFocus:hover {
+	background-color: rgb(226, 232, 240);
+}
+
+.interactive-onFocus:focus {
+	box-shadow: 0 0 0 3px #83c0ed;
+	background-color: rgb(225, 232, 241);
+}
+
+.interactive-onFocus:active {
+	box-shadow: 0 0 0 3px #83c0ed;
+}
+
+@keyframes openSidebar {
+	0% {
+		width: 0;
+	}
+	100% {
+		width: 20%;
+	}
+}
+
+.sidebar {
+	animation: openSidebar 150ms ease-in-out forwards;
+	width: 0;
+}
+
+@media (max-width: 768px) {
+	.sidebar {
+		width: 100%;
+		animation: openSidebar 150ms ease-in-out forwards;
+	}
+}
 
 @tailwind base;
 @tailwind components;

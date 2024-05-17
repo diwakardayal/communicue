@@ -51,7 +51,7 @@ export default function SignInForm() {
 				<InputField placeholder="Email" setterFn={setEmail} />
 				<InputField placeholder="Enter Password" setterFn={setPassword} />
 				<button
-					className="bg-[#3383CE] text-white py-1 rounded-md font-bold hover:bg-[#3383ceed]"
+					className="bg-[#3383CE] text-white py-1 rounded-md font-semibold hover:bg-[#3383ceed]"
 					type="submit"
 				>
 					Login

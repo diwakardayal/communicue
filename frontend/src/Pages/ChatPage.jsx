@@ -1,3 +1,9 @@
+import ChatHeader from "../components/Chat/ChatHeader"
 export default function ChatPage() {
-	return <>PRIVATE PAGE</>
+	return (
+		<>
+			<ChatHeader />
+			PRIVATE PAGE
+		</>
+	)
 }
