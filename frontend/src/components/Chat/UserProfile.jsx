@@ -40,7 +40,7 @@ export default function UserProfile() {
 				<FaChevronDown size={10} />
 			</button>
 			{isProfileMenuClicked && (
-				<ProfileMenu
+				<UserProfileMenu
 					setIsMyProfileClicked={setIsMyProfileClicked}
 					menuRef={menuRef}
 					handleLogout={handleLogout}
@@ -49,16 +49,15 @@ export default function UserProfile() {
 
 			<Modal
 				isModalVisible={isMyProfileClicked}
-				name="Diwakar"
-				profilePicture="https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
-				email="diwakar@gmail.com"
 				closeModal={() => setIsMyProfileClicked(false)}
-			/>
+			>
+				<MyProfile closeModal={() => setIsMyProfileClicked(false)} />
+			</Modal>
 		</>
 	)
 }
 
-const ProfileMenu = ({ setIsMyProfileClicked, menuRef, handleLogout }) => {
+const UserProfileMenu = ({ setIsMyProfileClicked, menuRef, handleLogout }) => {
 	return (
 		<div
 			ref={menuRef}
@@ -77,6 +76,30 @@ const ProfileMenu = ({ setIsMyProfileClicked, menuRef, handleLogout }) => {
 			>
 				Logout
 			</button>
+		</div>
+	)
+}
+
+function MyProfile({ closeModal }) {
+	const { user } = useAuth()
+
+	return (
+		<div className="p-6 flex flex-col items-center">
+			<h1 className="text-2xl font-bold mb-4 text-gray-800 capitalize">{user?.name}</h1>
+			<img
+				src={user?.picture}
+				alt={`${user?.name}'s profile`}
+				className="w-24 h-24 rounded-full mb-4"
+			/>
+			<div className="text-center">
+				<div className="mb-2 text-2xl font-normal text-gray-700 ">Email: {user?.email}</div>
+				<button
+					className="bg-gray-300 px-4 py-2 rounded-md hover:bg-gray-400 transition-all"
+					onClick={closeModal}
+				>
+					Close
+				</button>
+			</div>
 		</div>
 	)
 }

@@ -39,7 +39,7 @@ export default function SignInForm() {
 
 		if (res) {
 			setTimeout(() => {
-				setUserInfoHandler(res)
+				setUserInfoHandler(res?.user)
 				navigate("/chat")
 			}, 1000)
 		}
