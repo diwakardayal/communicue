@@ -3,11 +3,13 @@ import { useState, useRef, useEffect } from "react"
 import { CgProfile } from "react-icons/cg"
 import { FaChevronDown } from "react-icons/fa6"
 import Modal from "../Modal"
+import { useAuth } from "../../hooks"
 
 export default function UserProfile() {
 	const [isProfileMenuClicked, setIsProfileMenuClicked] = useState(false)
 	const [isMyProfileClicked, setIsMyProfileClicked] = useState(false)
 
+	const { handleLogout } = useAuth()
 	const menuRef = useRef(null)
 
 	function handleClickOutside(event) {
@@ -38,7 +40,11 @@ export default function UserProfile() {
 				<FaChevronDown size={10} />
 			</button>
 			{isProfileMenuClicked && (
-				<ProfileMenu setIsMyProfileClicked={setIsMyProfileClicked} menuRef={menuRef} />
+				<ProfileMenu
+					setIsMyProfileClicked={setIsMyProfileClicked}
+					menuRef={menuRef}
+					handleLogout={handleLogout}
+				/>
 			)}
 
 			<Modal
@@ -52,7 +58,7 @@ export default function UserProfile() {
 	)
 }
 
-const ProfileMenu = ({ setIsMyProfileClicked, menuRef }) => {
+const ProfileMenu = ({ setIsMyProfileClicked, menuRef, handleLogout }) => {
 	return (
 		<div
 			ref={menuRef}
@@ -65,7 +71,10 @@ const ProfileMenu = ({ setIsMyProfileClicked, menuRef }) => {
 				My Profile
 			</button>
 			<hr />
-			<button className="px-[6.4px] py-[12.8px] hover:bg-slate-300 w-full transition-all 200ms ease-in-out">
+			<button
+				className="px-[6.4px] py-[12.8px] hover:bg-slate-300 w-full transition-all 200ms ease-in-out"
+				onClick={handleLogout}
+			>
 				Logout
 			</button>
 		</div>
