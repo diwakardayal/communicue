@@ -22,6 +22,7 @@ export default function MyChatList() {
 	async function getChatsWithLatestMsg() {
 		const res = await fetchChatsAndLatestMsg()
 		setChats(res)
+		console.log(res)
 		setIsDataLoading(false)
 	}
 
@@ -49,7 +50,12 @@ export default function MyChatList() {
 							<div
 								key={index}
 								className="p-4 border-b border-gray-200 bg-gray-200 mb-2 rounded-md cursor-pointer flex flex-col"
-								onClick={() => setCurrentChat("LOL")}
+								onClick={() =>
+									setCurrentChat({
+										id: chat._id,
+										name: chat.chatName,
+									})
+								}
 							>
 								<p className="font-semibold">{chat?.chatName}</p>
 								<div className="flex flex-wrap">
