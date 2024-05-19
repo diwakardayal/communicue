@@ -9,30 +9,26 @@ import { searchUser } from "../../services/user"
 import { debounce } from "../../utils"
 import { RxCross2 } from "react-icons/rx"
 import { ToastConfig } from "../../utils/component"
-import { createChatRoom } from "../../services/chat"
-
-let chatLists = [
-	{
-		latestMessage: "Hello its me",
-		user: "Guest User",
-		chatName: "lol2",
-	},
-	{
-		latestMessage: "YOYO ",
-		user: "diwakar@gmail.com",
-	},
-	{
-		latestMessage: "What's up?",
-		user: "john.doe@example.com",
-	},
-]
-// For Testing Only
-chatLists = chatLists.map(b => ({ ...b, chatName: "Nice" }))
+import { createChatRoom, fetchChatsAndLatestMsg } from "../../services/chat"
+import Loader from "../Loader"
 
 export default function MyChatList() {
+	const [chats, setChats] = useState([])
 	const [isCreateGroupChatVisible, setIsCreateGroupChatVisible] = useState(false)
+	const [isDataLoading, setIsDataLoading] = useState(false)
 
 	const { setCurrentChat } = useChat()
+
+	async function getChatsWithLatestMsg() {
+		const res = await fetchChatsAndLatestMsg()
+		setChats(res)
+		setIsDataLoading(false)
+	}
+
+	useEffect(() => {
+		setIsDataLoading(true)
+		getChatsWithLatestMsg()
+	}, [])
 
 	return (
 		<>
@@ -42,19 +38,28 @@ export default function MyChatList() {
 					<NewGroupChatButton onClick={() => setIsCreateGroupChatVisible(true)} />
 				</div>
 				<div className="mt-4 h-[calc(100vh-200px)] overflow-y-auto px-2">
-					{chatLists.map((chat, index) => (
-						<div
-							key={index}
-							className="p-4 border-b border-gray-200 bg-gray-200 mb-2 rounded-md cursor-pointer flex flex-col"
-							onClick={() => setCurrentChat("LOL")}
-						>
-							<p>{chat?.chatName}</p>
-							<div className="flex flex-wrap">
-								<h3 className="font-semibold">{chat?.user} :&nbsp;</h3>
-								<h3> {chat?.latestMessage}</h3>
-							</div>
+					{isDataLoading && (
+						<div className="flex justify-center mt-10">
+							<Loader />
 						</div>
-					))}
+					)}
+
+					{!isDataLoading &&
+						chats.map((chat, index) => (
+							<div
+								key={index}
+								className="p-4 border-b border-gray-200 bg-gray-200 mb-2 rounded-md cursor-pointer flex flex-col"
+								onClick={() => setCurrentChat("LOL")}
+							>
+								<p className="font-semibold">{chat?.chatName}</p>
+								<div className="flex flex-wrap">
+									<h3 className="font-semibold">
+										{chat.latestMessage.sender.name} :&nbsp;
+									</h3>
+									<h3> {chat?.latestMessage.content}</h3>
+								</div>
+							</div>
+						))}
 				</div>
 			</div>
 
@@ -99,20 +104,17 @@ function NewGroupChatForm() {
 			name: chatRoomName,
 		}
 
-		const res = await toast.promise(createChatRoom(form), {
+		await toast.promise(createChatRoom(form), {
 			pending: "Creating chatroom…",
 			success: "Chatroom created",
 			error: "Failed to create chatroom",
 		})
-
-		console.log("res ", res)
 	}
 
 	const handleUserSearch = async searchKeyword => {
 		if (!searchKeyword) return
 		const { users: usersArray } = await searchUser(searchKeyword)
 		setUsers(usersArray)
-		console.log(usersArray)
 	}
 
 	const debouncedHandleUserSearch = useCallback(debounce(handleUserSearch, 500), [])

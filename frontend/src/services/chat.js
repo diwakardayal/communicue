@@ -5,4 +5,9 @@ async function createChatRoom(formData) {
 	return res.data
 }
 
-export { createChatRoom }
+async function fetchChatsAndLatestMsg() {
+	const res = await axios.get("/api/chat/")
+	return res.data
+}
+
+export { createChatRoom, fetchChatsAndLatestMsg }

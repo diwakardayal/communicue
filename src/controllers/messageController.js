@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 const User = require("../db/models/userModel")
 const Message = require("../db/models/messageModel")
-const Chat = require("../db/models/messageModel")
+const Chat = require("../db/models/chatModel")
 const asyncHandler = require("../middleware/asyncHandler")
 
 // @desc Get all Messages
@@ -10,7 +10,7 @@ const asyncHandler = require("../middleware/asyncHandler")
 const allMessages = asyncHandler(async (req, res) => {
 	try {
 		const messages = await Message.find({ chat: req.params.chatId })
-			.populate("sender", "name pic email")
+			.populate("sender", "name picture email")
 			.populate("chat")
 		res.json(messages)
 	} catch (error) {
@@ -39,14 +39,14 @@ const sendMessage = asyncHandler(async (req, res) => {
 	try {
 		let message = await Message.create(newMessage)
 
-		message = await message.populate("sender", "name pic").execPopulate()
-		message = await message.populate("chat").execPopulate()
+		message = await message.populate("sender", "name picture")
+		message = await message.populate("chat")
 		message = await User.populate(message, {
 			path: "chat.users",
-			select: "name pic email",
+			select: "name picture email",
 		})
 
-		await Chat.findByIdAndUpdate(req.body.chatId, { latestMessage: message })
+		await Chat.findByIdAndUpdate(chatId, { latestMessage: message })
 
 		res.json(message)
 	} catch (error) {
