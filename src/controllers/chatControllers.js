@@ -79,12 +79,12 @@ const fetchUserChats = asyncHandler(async (req, res) => {
 // @route        POST /api/chat/group
 // @access       Protected
 const createGroupChat = asyncHandler(async (req, res) => {
-	if (!req.body.users || !req.body.name) {
+	const { users, name } = req.body
+
+	if (!users || !name) {
 		res.status(400)
 		throw new Error("Please fill all the fields")
 	}
-
-	let users = JSON.parse(req.body.users)
 
 	if (users.length < 2) {
 		res.status(400)

@@ -9,6 +9,7 @@ const requireAuth = asyncHandler(async (req, res, next) => {
 		if (token) {
 			const decode = jsonWebToken.verify(token, process.env.JWT_SECRET)
 			const user = await User.findById(decode?.id)
+
 			req.user = user
 
 			next()

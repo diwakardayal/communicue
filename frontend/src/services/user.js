@@ -16,4 +16,9 @@ async function signup(user) {
 	return { user: res.data }
 }
 
-export { login, signup }
+async function searchUser(keyword) {
+	const res = await axios.get("/api/user?search=" + keyword)
+	return { users: res.data }
+}
+
+export { login, signup, searchUser }

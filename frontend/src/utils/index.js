@@ -18,4 +18,14 @@ function validateFormFields(email, password, name) {
 	return { ok: true, error: "" }
 }
 
-export { validateFormFields }
+function debounce(func, timeout = 900) {
+	let timer
+	return (...args) => {
+		clearTimeout(timer)
+		timer = setTimeout(() => {
+			func.apply(this, args)
+		}, timeout)
+	}
+}
+
+export { validateFormFields, debounce }
