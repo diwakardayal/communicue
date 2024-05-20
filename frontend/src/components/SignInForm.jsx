@@ -49,7 +49,7 @@ export default function SignInForm() {
 		<>
 			<form className="bg-white flex flex-col px-3 gap-2" onSubmit={handleSubmit}>
 				<InputField placeholder="Email" setterFn={setEmail} />
-				<InputField placeholder="Enter Password" setterFn={setPassword} />
+				<InputField placeholder="Enter Password" setterFn={setPassword} type="password" />
 				<button
 					className="bg-[#3383CE] text-white py-1 rounded-md font-semibold hover:bg-[#3383ceed]"
 					type="submit"
