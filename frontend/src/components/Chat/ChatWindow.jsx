@@ -3,6 +3,7 @@ import { useAuth, useChat } from "../../hooks"
 import { fetchConversationById, sendMessageInChat } from "../../services/message"
 import { ToastConfig } from "../../utils/component"
 import Loader from "../Loader"
+import { toast } from "react-toastify"
 
 export default function ChatWindow() {
 	const [chatConversation, setChatConversation] = useState([])
@@ -26,7 +27,7 @@ export default function ChatWindow() {
 
 	const chatEndRef = useRef(null)
 
-	const scrollToBottom = () => {
+	function scrollToBottom() {
 		chatEndRef.current?.scrollIntoView({ behavior: "smooth" })
 	}
 
@@ -34,12 +35,12 @@ export default function ChatWindow() {
 		try {
 			const res = await fetchConversationById(currentChat.id)
 
-			console.log("res1", res)
 			setChatConversation(res)
-			scrollToBottom()
 			setIsFetching(false)
+			scrollToBottom()
 		} catch (e) {
 			console.log(e)
+			toast.error("Failed to fetch conversation!")
 		}
 	}
 
@@ -49,6 +50,10 @@ export default function ChatWindow() {
 			fetchConversation()
 		}
 	}, [currentChat])
+
+	useEffect(() => {
+		scrollToBottom()
+	}, [chatConversation])
 
 	return (
 		<>
@@ -74,7 +79,7 @@ export default function ChatWindow() {
 						<div className="h-[calc(100vh-170px)] bg-gray-200 rounded-md flex flex-col justify-between p-3">
 							<div className="overflow-hidden overflow-y-auto hide-scrollbar">
 								{chatConversation.map((c, index) => (
-									<div key={index} className="h-11 m-2" ref={chatEndRef}>
+									<div key={index} className="h-11 m-2">
 										<div
 											className={`flex gap-1 ${
 												c.sender._id === user.id
