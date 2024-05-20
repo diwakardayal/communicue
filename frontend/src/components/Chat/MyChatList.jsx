@@ -38,7 +38,7 @@ export default function MyChatList() {
 					<h2 className="text-3xl">My Chats</h2>
 					<NewGroupChatButton onClick={() => setIsCreateGroupChatVisible(true)} />
 				</div>
-				<div className="mt-4 h-[calc(100vh-200px)] overflow-y-auto px-2">
+				<div className="mt-4 h-[calc(100vh-200px)] overflow-auto px-2 hide-scrollbar">
 					{isDataLoading && (
 						<div className="flex justify-center mt-10">
 							<Loader />

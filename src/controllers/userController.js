@@ -71,7 +71,7 @@ const registerUser = asyncHandler(async (req, res) => {
 // @desc Get user
 // @route GET /api/user?search=
 // @access Private
-const getUsers = asyncHandler(async (req, res) => {
+const searchUsers = asyncHandler(async (req, res) => {
 	const keyword = req.query.search
 		? {
 				$or: [
@@ -85,4 +85,4 @@ const getUsers = asyncHandler(async (req, res) => {
 	res.send(users)
 })
 
-module.exports = { authUser, registerUser, getUsers }
+module.exports = { authUser, registerUser, searchUsers }
