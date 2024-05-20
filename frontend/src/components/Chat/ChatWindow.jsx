@@ -55,6 +55,16 @@ export default function ChatWindow() {
 		scrollToBottom()
 	}, [chatConversation])
 
+	useEffect(() => {
+		if (!currentChat) return
+
+		const interval = setInterval(() => {
+			fetchConversation()
+		}, 10000)
+
+		return () => clearInterval(interval)
+	}, [currentChat])
+
 	return (
 		<>
 			<div className="bg-white w-full rounded-md p-4">
